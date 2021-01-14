@@ -50,5 +50,4 @@ dataset_bank %>%
   group_by(technology_use)%>%
   summarise(n = n())%>%
   ggplot(aes(x = technology_use, y = n))+
-  geom_bar(stat = "identity")+
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  geom_bar(stat = "identity")
