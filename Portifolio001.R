@@ -11,11 +11,11 @@ library(ggplot2)
 
 # Loading data
 dataset_bank <- read.table("bank-full.csv", header = TRUE, sep = ";")
+
+# Data Conference
 View(dataset_bank)
 table(dataset_bank$job)
 
-
-# graphic
 dataset_bank %>%
   group_by(job)%>%
   summarise(n = n())%>%
@@ -25,7 +25,6 @@ dataset_bank %>%
 
 
 # Adding Column
-
 dataset_bank <- dataset_bank %>%
   mutate(technology_use = 
            case_when(job == 'admin.' ~ "medio",
