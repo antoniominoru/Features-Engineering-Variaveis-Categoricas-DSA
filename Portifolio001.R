@@ -40,7 +40,7 @@ dataset_bank <- dataset_bank %>%
                      job == 'unemployed' ~ "baixo",
                      job == 'unknown' ~ "baixo"))
 
-#data conference
+# Data Review
 View(dataset_bank)
 table(dataset_bank$technology_use)
 round(prop.table(table(dataset_bank$technology_use)),2)
