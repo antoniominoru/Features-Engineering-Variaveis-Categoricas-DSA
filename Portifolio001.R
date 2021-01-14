@@ -1,21 +1,21 @@
 # Features Engineering | Variáveis Categóricas | DSA
 
-# Converter profissão (job) pelo uso da tecnologia em nível médio, alto e baixo 
+# Profession converter (job) for the use of technology at "médio", "alto" and "baixo". 
 
 # Dataset: http://archive.ics.uci.edu/ml/machine-learning-databases/00222/bank.zip
 
-# Bibliotecas
+# Libraries
 library(dplyr)
 library(ggplot2)
 
 
-# Carregando os dados
-dataset_bank <- read.table("bank/bank-full.csv", header = TRUE, sep = ";")
+# Loading data
+dataset_bank <- read.table("bank-full.csv", header = TRUE, sep = ";")
 View(dataset_bank)
 table(dataset_bank$job)
 
 
-# grafico
+# graphic
 dataset_bank %>%
   group_by(job)%>%
   summarise(n = n())%>%
@@ -24,7 +24,7 @@ dataset_bank %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 
-# Acrescentando Coluna
+# Adding Column
 
 dataset_bank <- dataset_bank %>%
   mutate(technology_use = 
@@ -41,7 +41,7 @@ dataset_bank <- dataset_bank %>%
                      job == 'unemployed' ~ "baixo",
                      job == 'unknown' ~ "baixo"))
 
-#conferencia
+#data conference
 View(dataset_bank)
 table(dataset_bank$technology_use)
 round(prop.table(table(dataset_bank$technology_use)),2)
