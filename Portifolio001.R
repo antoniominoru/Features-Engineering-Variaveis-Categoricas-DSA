@@ -1,20 +1,21 @@
-# Features Engineering | Variáveis Categóricas
+# Features Engineering | Variáveis Categóricas | DSA
 
-# Para esse estudo de caso, digamos que realmente queremos entender a profissão (job) de acordo 
-# com o uso da tecnologia em uma determinada função. Nesse caso, começaríamos a classificar 
-# cada uma das profissões em nível médio, alto e baixo em termos de uso de tecnologia.
+# Converter profissão (job) pelo uso da tecnologia em nível médio, alto e baixo 
 
 # Dataset: http://archive.ics.uci.edu/ml/machine-learning-databases/00222/bank.zip
+
+# Bibliotecas
+library(dplyr)
+library(ggplot2)
+
 
 # Carregando os dados
 dataset_bank <- read.table("bank/bank-full.csv", header = TRUE, sep = ";")
 View(dataset_bank)
 table(dataset_bank$job)
 
-# Carregando as bibliotecas
-library(dplyr)
-library(ggplot2)
 
+# grafico
 dataset_bank %>%
   group_by(job)%>%
   summarise(n = n())%>%
@@ -23,11 +24,11 @@ dataset_bank %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 
-# acrescentando Coluna alvo
+# Acrescentando Coluna
 
 dataset_bank <- dataset_bank %>%
   mutate(technology_use = 
-           case_when(job == 'admin' ~ "medio",
+           case_when(job == 'admin.' ~ "medio",
                      job == 'blue-collar' ~ "baixo",
                      job == 'entrepreneur' ~ "alto",
                      job == 'housemaid' ~ "baixo",
@@ -40,12 +41,14 @@ dataset_bank <- dataset_bank %>%
                      job == 'unemployed' ~ "baixo",
                      job == 'unknown' ~ "baixo"))
 
+#conferencia
 View(dataset_bank)
-
-# Agora vamos revisar rapidamente esse novo campo.
 table(dataset_bank$technology_use)
-
-# Vamos colocar isso em percentual
 round(prop.table(table(dataset_bank$technology_use)),2)
 
-
+dataset_bank %>%
+  group_by(technology_use)%>%
+  summarise(n = n())%>%
+  ggplot(aes(x = technology_use, y = n))+
+  geom_bar(stat = "identity")+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
